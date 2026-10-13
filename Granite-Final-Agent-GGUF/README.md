@@ -25,6 +25,10 @@ datasets:
   - open-thoughts/AgentTrove
 ---
 
+<p align="center">
+  <img src="https://huggingface.co/SiddardhaShayini/TAEL_Agent/raw/main/tael-logo.svg" alt="TAEL-Agent Logo" width="160" />
+</p>
+
 # TAEL-Agent (`v2.0.0-rc1`) — Granite 3.1 2B Instruct GGUF (`Q4_K_M`)
 
 - **GitHub Repository (Agent Runtime, Tool System, Memory & VS Code Extension):** [https://github.com/SiddardhaShayini/TAEL_Agent](https://github.com/SiddardhaShayini/TAEL_Agent)

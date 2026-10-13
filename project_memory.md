@@ -61,7 +61,12 @@
 | `OLLAMA_TROUBLESHOOTING.md` | **Ollama Troubleshooting Guide:** Comprehensive guide resolving common Ollama deployment issues, 8GB RAM memory management, ChatML stop tokens, and raw CLI vs. autonomous agent runtime execution. |
 | `tael-vscode-extension/` | **TAEL VS Code Extension:** Complete TypeScript VS Code extension (`package.json`, `src/extension.ts`, `src/chatViewProvider.ts`, `src/ollamaClient.ts`, `src/router.ts`, `src/tools.ts`, `src/workspaceContext.ts`, `src/editApplier.ts`, `test_vscode_extension.js`) integrating local Ollama (`tael-agent`) with Sidebar Chat, Code Generation, Refactoring, Code Explanation, Diff & Apply Edits, Sandboxed Tool Execution, and Workspace Awareness. |
 | `examples/` | **Interactive Example Notebooks:** `01_tael_quickstart_and_routing.ipynb` (Dynamic Task Router & Ollama) and `02_autonomous_agent_and_tools.ipynb` (Sandboxed Tools & Persistent Memory). |
+| `assets/tael-logo.svg` | **Official Vector Logo:** 512x512 SVG emblem featuring cyan/indigo gradient circular badge, router glyphs, and TAEL wordmark (rendered at `width="160"`). |
 | `assets/screenshots/` | **Demo Screenshots:** Vector SVG screenshots (`vscode_extension_demo.svg`, `cli_agent_runtime_demo.svg`, `swe_benchmark_results.svg`) embedded in `README.md`. |
+| `CODE_OF_CONDUCT.md` | **Code of Conduct:** Contributor Covenant v2.1 code of conduct with maintainer reporting contact (`siddardhashayini9@gmail.com`). |
+| `CONTRIBUTING.md` | **Contributor Guide:** Complete open-source developer guide covering setup, tool extension tutorials, router heuristics, unit tests, and PR conventions. |
+| `SECURITY.md` | **Security Policy:** Security sandboxing guarantees (`PathSandbox`, `CommandSandbox`), execution timeouts, credential protection, and private vulnerability disclosure policy. |
+| `.github/` | **GitHub Templates:** Issue templates (`bug_report.md`, `feature_request.md`) and Pull Request checklist (`PULL_REQUEST_TEMPLATE.md`). |
 | `RELEASE_NOTES.md` | **Release Candidate 1 Notes (`v2.0.0-rc1`):** Official release notes, feature highlights, benchmark summary, and GGUF checksums. |
 | `publish_huggingface.py` | **Hugging Face Publisher:** Automated validator and uploader publishing `Granite-Final-Agent-GGUF/` to `SiddardhaShayini/TAEL_Agent`. |
 | `LICENSE` | **Apache 2.0 License:** Full official Apache 2.0 license text. |
@@ -444,12 +449,35 @@ Tested `Granite-Final-Agent-GGUF` locally using `llama.cpp` CPU (6 threads, temp
 
 ---
 
+### Date: 2026-10-13 — Open-Source Community Health & Official Logo Integration (`CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`, `.github/`, `tael-logo.svg`)
+- **Objective:** Establish production open-source community standards, add governance and security policies, integrate the official SVG project logo across documentation, and prepare the repository for public collaboration.
+- **Actions Executed:**
+  1. **Official Logo Integration (`assets/tael-logo.svg`):**
+     - User provided circular vector emblem (512x512 viewBox) featuring cyan/indigo gradients, "T" glyph router branches, and the TAEL wordmark.
+     - Centered logo placed in `README.md` at `width="160"` (`160px × 160px`), providing a clean, balanced hero presentation.
+     - Distributed logo to `Granite-Final-Agent-GGUF/tael-logo.svg` (referenced in Hugging Face `README.md`) and `tael-vscode-extension/media/tael-logo.svg` (referenced in VS Code extension `README.md`).
+  2. **Contributor Covenant Code of Conduct (`CODE_OF_CONDUCT.md`):**
+     - Adopted Contributor Covenant v2.1 with clear standards, enforcement responsibilities, and reporting contact (`siddardhashayini9@gmail.com`).
+  3. **Open-Source Contribution Guide (`CONTRIBUTING.md`):**
+     - Detailed step-by-step developer guide covering environment setup, project architecture, tutorial for adding tools to `tael_tools/`, extending the Dynamic Task Router in `tael_router.py`, running Python/TypeScript test suites, and Git PR conventions.
+  4. **Security Policy & Sandboxing Guarantees (`SECURITY.md`):**
+     - Documented defense-in-depth architectural safeguards (`PathSandbox` workspace confinement, `CommandSandbox` destructive command blacklist, 15s–30s process timeouts, 10,000 char output caps, and offline zero-telemetry guarantee).
+     - Defined responsible private vulnerability disclosure protocol.
+  5. **GitHub Issue & Pull Request Templates (`.github/`):**
+     - `.github/ISSUE_TEMPLATE/bug_report.md`: Structured bug report with hardware/OS/engine specs.
+     - `.github/ISSUE_TEMPLATE/feature_request.md`: Component-targeted feature proposal.
+     - `.github/PULL_REQUEST_TEMPLATE.md`: Standardized checklist covering code style, unit test suites, and sandbox safety verification.
+
+---
+
 ## 4. Current State & Immediate Next Steps
 
 ### Current State (Release Candidate 1 — `v2.0.0-rc1`)
 * **Release Tag:** `v2.0.0-rc1` (**Release Candidate 1**)
 * **GitHub Repository:** `https://github.com/SiddardhaShayini/TAEL_Agent.git`
 * **Hugging Face Repository:** `SiddardhaShayini/TAEL_Agent` (`Granite-Final-Agent-GGUF/` + `publish_huggingface.py`)
+* **Official Logo:** Rendered in `README.md`, `Granite-Final-Agent-GGUF/`, and `tael-vscode-extension/` at verified `width="160"`.
+* **Open Source Governance:** Fully configured with `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`, and `.github/` templates.
 * **Brain:** `Granite-Final-Agent-GGUF/granite-3.1-2b-instruct.Q4_K_M.gguf` (1.47 GB Q4_K_M GGUF), registered in Ollama as `tael-agent:latest`.
 * **Agent Runtime Core:** Fully operational in `tael_agent_runtime.py` with streaming, fault-tolerant XML parser, and multi-turn sequential loop.
 * **Tool System:** Fully operational in `tael_tools/` (Python, 11/11 tests passing) and `tael-vscode-extension/src/tools.ts` (TypeScript) with 10 sandboxed tools, centralized registry, `PathSandbox`, and `CommandSandbox`.
@@ -459,6 +487,7 @@ Tested `Granite-Final-Agent-GGUF` locally using `llama.cpp` CPU (6 threads, temp
 * **Ollama Deployment:** Validated and verified end-to-end (5/5 stages passing) via `install_ollama_tael.py`, `install_ollama.ps1`, `Granite-Final-Agent-GGUF/Modelfile`, and `OLLAMA_TROUBLESHOOTING.md`.
 * **VS Code Extension:** Fully implemented, compiled, and verified in `tael-vscode-extension/` (14/14 unit & live Ollama streaming tests passing at `23.01 tok/s`).
 * **Release Documentation & Model Card:** Complete in `README.md`, `MODEL_CARD.md`, `INSTALL.md`, `QUICKSTART.md`, `FAQ.md`, and `RELEASE_NOTES.md`.
+
 
 
 

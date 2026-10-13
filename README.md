@@ -1,11 +1,25 @@
-# TAEL-Agent (`v2.0.0-rc1`) — Task-Adaptive Efficient Language Agent
+<p align="center">
+  <img src="./assets/tael-logo.svg" alt="TAEL-Agent Logo" width="160" />
+</p>
 
-[![Release: v2.0.0-rc1](https://img.shields.io/badge/Release-v2.0.0--rc1_(Release_Candidate_1)-blueviolet.svg)](./RELEASE_NOTES.md)
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
-[![Model: Granite 3.1 2B Instruct](https://img.shields.io/badge/Backbone-IBM_Granite_3.1_2B-0f62fe.svg)](./MODEL_CARD.md)
-[![Hugging Face: SiddardhaShayini/TAEL_Agent](https://img.shields.io/badge/Hugging_Face-SiddardhaShayini%2FTAEL__Agent-ffcc00.svg)](https://huggingface.co/SiddardhaShayini/TAEL_Agent)
-[![SWE Benchmark: 100% Pass](https://img.shields.io/badge/SWE_Benchmark-100%25_Pass_(8%2F8)-brightgreen.svg)](./benchmark_report.md)
-[![Target Hardware: 8GB RAM CPU](https://img.shields.io/badge/Hardware-8GB_RAM_Laptop_(CPU)-orange.svg)](#5-hardware-requirements)
+<h1 align="center">TAEL-Agent</h1>
+
+<p align="center">
+  <strong>Task-Adaptive Efficient Language Agent (v2.0.0-rc1)</strong><br />
+  <em>An autonomous, local software engineering AI agent engineered for 8GB RAM consumer laptops without dedicated GPUs.</em>
+</p>
+
+<p align="center">
+  <a href="./RELEASE_NOTES.md"><img src="https://img.shields.io/badge/Release-v2.0.0--rc1_(Release_Candidate_1)-blueviolet.svg" alt="Release: v2.0.0-rc1" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License: Apache 2.0" /></a>
+  <a href="./MODEL_CARD.md"><img src="https://img.shields.io/badge/Backbone-IBM_Granite_3.1_2B-0f62fe.svg" alt="Backbone: IBM Granite 3.1 2B" /></a>
+  <a href="https://huggingface.co/SiddardhaShayini/TAEL_Agent"><img src="https://img.shields.io/badge/Hugging_Face-SiddardhaShayini%2FTAEL__Agent-ffcc00.svg" alt="Hugging Face Hub" /></a>
+  <a href="./benchmark_report.md"><img src="https://img.shields.io/badge/SWE_Benchmark-100%25_Pass_(8%2F8)-brightgreen.svg" alt="Benchmark: 100% Pass" /></a>
+  <a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-Welcome-brightgreen.svg" alt="PRs Welcome" /></a>
+  <a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor_Covenant-v2.1-ff69b4.svg" alt="Code of Conduct" /></a>
+</p>
+
+---
 
 **TAEL V2 (`v2.0.0-rc1`)** (**T**ask-**A**daptive **E**fficient **L**anguage) is a local, privacy-preserving, autonomous software engineering AI agent engineered to run smoothly on **8GB RAM consumer laptops without a dedicated GPU**.
 
@@ -183,8 +197,22 @@ Because TAEL is an autonomous agent capable of writing files and running command
 - **[MODEL_CARD.md](./MODEL_CARD.md):** Detailed model architecture, training hyperparameters, datasets, benchmarks, and ethical/safety analysis.
 - **[FAQ.md](./FAQ.md):** Answers to common questions regarding architecture, tool execution, hardware limits, and licensing.
 - **[OLLAMA_TROUBLESHOOTING.md](./OLLAMA_TROUBLESHOOTING.md):** Dedicated troubleshooting guide for local Ollama deployment.
+- **[CONTRIBUTING.md](./CONTRIBUTING.md):** Open-source contributor guide, tool extension tutorial, and test suite instructions.
+- **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md):** Contributor Covenant v2.1 code of conduct.
+- **[SECURITY.md](./SECURITY.md):** Security policies, sandboxing guarantees, and vulnerability reporting.
 - **[Example Notebook 1: Quickstart & Dynamic Router](./examples/01_tael_quickstart_and_routing.ipynb):** Interactive notebook demonstrating 9-category task routing and local Ollama inference.
 - **[Example Notebook 2: Sandboxed Tools & Memory](./examples/02_autonomous_agent_and_tools.ipynb):** Interactive notebook demonstrating `tael_tools`, `PathSandbox`, and `tael_memory`.
 - **[LICENSE](./LICENSE):** Official Apache License 2.0.
 - **[project_memory.md](./project_memory.md):** Complete chronological engineering log and architectural decision record.
+
+---
+
+## 9. Contributing & Community
+
+We welcome open-source contributions! Whether you are adding new tools to `tael_tools/`, tuning task routing heuristics in `tael_router.py`, expanding the VS Code extension, or reporting benchmarks across different hardware, check out **[CONTRIBUTING.md](./CONTRIBUTING.md)** to get started.
+
+- **GitHub Issues:** [https://github.com/SiddardhaShayini/TAEL_Agent/issues](https://github.com/SiddardhaShayini/TAEL_Agent/issues)
+- **Hugging Face Hub:** [https://huggingface.co/SiddardhaShayini/TAEL_Agent](https://huggingface.co/SiddardhaShayini/TAEL_Agent)
+- **License:** [Apache 2.0](./LICENSE)
+
 

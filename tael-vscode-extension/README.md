@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./media/tael-logo.svg" alt="TAEL-Agent Logo" width="160" />
+</p>
+
 # TAEL VS Code Extension (`tael-vscode-extension`)
 
 Local autonomous software engineering assistant for Visual Studio Code, powered by **TAEL (`tael-agent` / IBM Granite 3.1 2B Instruct Q4_K_M GGUF)** running on the **local Ollama runtime**.
