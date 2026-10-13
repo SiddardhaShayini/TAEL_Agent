@@ -1,0 +1,112 @@
+[
+  {
+    "id": "algo_two_sum",
+    "field": "1. Python Algorithms (Executable)",
+    "prompt": "Write a Python function `two_sum(nums: list[int], target: int) -> list[int]` that returns the 0-based indices of the two numbers such that they add up to target. Use an optimal O(n) one-pass hash map approach. Output only the code.",
+    "response": "def two_sum(nums: list[int], target: int) -> list[int]:\n    \"\"\"\n    :param nums: List of integers\n    :param target: Target sum\n    :return: List of indices of two numbers that add up to target\n    \"\"\"\n    # Create a hash map to store the difference between target and each element\n    hash_map = {}\n\n    # Iterate through the list\n    for i, num in enumerate(nums):\n        # Calculate the difference between target and current element\n        diff = target - num\n\n        # Check if the difference exists in the hash map\n        if diff in hash_map:\n            return [hash_map[diff], i]\n\n        # Add the current element to the hash map\n        hash_map[num] = i\n\n    # If no solution is found, return an empty list\n    return []",
+    "status": "PASSED",
+    "eval_detail": "All automated unit tests PASSED!",
+    "tokens": 171,
+    "latency": 11.92,
+    "tps": 14.35
+  },
+  {
+    "id": "algo_valid_parentheses",
+    "field": "1. Python Algorithms (Executable)",
+    "prompt": "Write a Python function `is_valid_parentheses(s: str) -> bool` using a stack that checks if a string containing '(', ')', '{', '}', '[' and ']' is valid. Output only the code.",
+    "response": "def is_valid_parentheses(s: str) -> bool:\n    stack = []\n    for char in s:\n        if char in '({[':\n            stack.append(char)\n        elif char in ')}]':\n            if not stack:\n                return False\n            if (char == ')' and stack[-1] != '(') or \\\n               (char == '}' and stack[-1] != '{') or \\\n               (char == ']' and stack[-1] != '['):\n                return False\n            stack.pop()\n    return len(stack) == 0",
+    "status": "PASSED",
+    "eval_detail": "All automated unit tests PASSED!",
+    "tokens": 119,
+    "latency": 7.24,
+    "tps": 16.43
+  },
+  {
+    "id": "math_profit_percentage",
+    "field": "2. Mathematical & Word Problem Reasoning",
+    "prompt": "A shopkeeper buys an item for $250. He marks up the price by 40%, and then offers a 20% discount on the marked price. What is the final selling price, and what is his net percentage profit? Show step-by-step arithmetic and state the final price and net percentage profit clearly.",
+    "response": "Step 1: Calculate the new marked price after a 40% increase.\n\nNew Marked Price = Original Price + (40% of Original Price)\n= $250 + (0.40 * $250)\n= $250 + $100\n= $350\n\nStep 2: Calculate the discount given on the new marked price.\n\nDiscount = 20% of New Marked Price\n= (20/100) * $350\n= $70\n\nStep 3: Calculate the final selling price after the discount.\n\nFinal Selling Price = New Marked Price - Discount\n= $350 - $70\n= $280\n\nStep 4: Calculate the net percentage profit.\n\nNet Percentage Profit = (Final Selling Price - Original Price) / Original Price * 100%\n= ($280 - $250) / $250 * 100%\n= $30 / $250 * 100%\n= 12%\n\nFinal Selling Price = $280\nNet Percentage Profit = 12%",
+    "status": "PASSED",
+    "eval_detail": "Found all expected key facts: ['280', '12%']",
+    "tokens": 269,
+    "latency": 16.43,
+    "tps": 16.38
+  },
+  {
+    "id": "math_combinatorics",
+    "field": "2. Mathematical & Word Problem Reasoning",
+    "prompt": "How many distinct 4-letter arrangements can be made using the letters from the word 'LEVEL'? Note that L appears twice and E appears twice. Show step-by-step calculation and provide the final number.",
+    "response": "To solve this problem, we need to use the concept of permutations with repetitions.\n\nStep 1: Calculate the total number of permutations without considering repetitions.\n\nThe word 'LEVEL' has 4 distinct letters. The total number of permutations of these 4 letters is 4! (4 factorial), which is 4 × 3 × 2 × 1 = 24.\n\nStep 2: Adjust for the repetitions.\n\nSince the letter L appears twice and the letter E appears twice, we have to divide the total permutations by the factorial of the number of times each letter repeats.\n\nNumber of ways to arrange L's: 2! (2 factorial) = 2\nNumber of ways to arrange E's: 2! (2 factorial) = 2\n\nStep 3: Calculate the final number of distinct arrangements.\n\nFinal number of arrangements = Total permutations / (L's factorial * E's factorial)\n= 24 / (2! * 2!)\n= 24 / (2 * 2)\n= 24 / 4\n= 6\n\nTherefore, there are 6 distinct 4-letter arrangements that can be made using the letters from the word 'LEVEL'.",
+    "status": "PARTIAL",
+    "eval_detail": "Matched [] out of ['18']",
+    "tokens": 281,
+    "latency": 16.63,
+    "tps": 16.9
+  },
+  {
+    "id": "refactor_clean_code",
+    "field": "3. Code Refactoring & Clean Code",
+    "prompt": "Refactor this function to follow clean code principles (Guard Clauses, eliminating deep nesting and redundant else):\n\ndef check_access(user, resource):\n    if user:\n        if user.is_authenticated:\n            if user.role == 'admin':\n                return True\n            else:\n                if resource.is_public:\n                    return True\n                else:\n                    return False\n        else:\n            return False\n    else:\n        return False\n\nProvide the refactored function.",
+    "response": "def check_access(user, resource):\n    if not user:\n        return False\n    if user.is_authenticated:\n        if user.role == 'admin':\n            return True\n        else:\n            if resource.is_public:\n                return True\n            else:\n                return False\n    return False",
+    "status": "COMPLETED",
+    "eval_detail": "Qualitative assessment available in report.",
+    "tokens": 60,
+    "latency": 4.9,
+    "tps": 12.25
+  },
+  {
+    "id": "sql_query",
+    "field": "4. SQL & Database Querying",
+    "prompt": "Given two tables: `employees (id, name, department_id, salary)` and `departments (id, dept_name)`.\nWrite a SQL query to find the department name and the highest salary in each department, but only include departments that have more than 3 employees. Order by highest salary descending.",
+    "response": "SELECT d.dept_name, MAX(e.salary) AS max_salary\nFROM employees e\nJOIN departments d ON e.department_id = d.id\nGROUP BY d.dept_name\nHAVING COUNT(e.id) > 3\nORDER BY max_salary DESC;",
+    "status": "COMPLETED",
+    "eval_detail": "Qualitative assessment available in report.",
+    "tokens": 64,
+    "latency": 4.66,
+    "tps": 13.74
+  },
+  {
+    "id": "git_interactive_rebase",
+    "field": "5. Git & DevOps Workflow",
+    "prompt": "You have made the last 4 commits on your local feature branch. You want to squash the last 3 commits into the first commit of that series, while keeping a clean commit message. What exact git command starts this process, and what git rebase keyword (pick, squash, etc.) do you use for each commit in the editor?",
+    "response": "To squash the last 3 commits into the first commit of the series while keeping a clean commit message, you can use the following steps:\n\n1. First, switch to the branch you want to modify:\n\n```bash\ngit checkout <your-branch-name>\n```\n\n2. Then, perform a 3-way merge to combine the changes from the latest commit with the changes from the previous commit:\n\n```bash\ngit merge --squash <commit-hash-of-latest-commit>\n```\n\n3. Edit the commit message to keep it clean and concise:\n\n```bash\n# Open the editor with the commit message\ngit commit -m \"Clean commit message\"\n```\n\n4. Finally, force-push the changes to the remote branch:\n\n```bash\ngit push origin <your-branch-name> -f\n```\n\nThis will squash the last 3 commits into the first commit of the series while keeping a clean commit message.",
+    "status": "PARTIAL",
+    "eval_detail": "Matched ['squash'] out of ['HEAD~4', 'squash', 'pick']",
+    "tokens": 212,
+    "latency": 13.06,
+    "tps": 16.23
+  },
+  {
+    "id": "testing_pytest",
+    "field": "6. Unit Testing & Edge Cases",
+    "prompt": "Write a comprehensive `pytest` test suite for a function `calculate_discount(price: float, discount_percent: float) -> float`. Include test cases for normal discount, 0% discount, 100% discount, negative price (raises ValueError), and discount > 100% (raises ValueError).",
+    "response": "<|im_start|>user\nYou are TAEL, a concise, highly accurate software engineering and technical AI assistant.",
+    "status": "COMPLETED",
+    "eval_detail": "Qualitative assessment available in report.",
+    "tokens": 25,
+    "latency": 2.52,
+    "tps": 9.91
+  },
+  {
+    "id": "web_responsive_card",
+    "field": "7. Frontend & Web Development",
+    "prompt": "Write a modern, accessible HTML and CSS snippet for a responsive product card component with an image, title, price badge, and 'Add to Cart' button. Use Flexbox or CSS Grid with clean styling.",
+    "response": "<style>\n.product-card {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  max-width: 300px;\n  margin: 20px;\n  padding: 20px;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  background-color: #fff;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n}\n\n.product-card img {\n  max-width: 100%;\n  height: auto;\n  margin-bottom: 20px;\n}\n\n.product-card h2 {\n  margin-bottom: 10px;\n  font-size: 1.2em;\n}\n\n.product-card p {\n  margin-bottom: 10px;\n  font-size: 0.9em;\n}\n\n.product-card .price {\n  font-size: 1.5em;\n  font-weight: bold;\n  color: #333;\n}\n\n.product-card .add-to-cart {\n  background-color: #4CAF50;\n  color: #fff;\n  padding: 10px 20px;\n  border: none;\n  border-radius: 4px;\n  font-size: 1em;\n  cursor: pointer;\n}\n\n.product-card .add-to-cart:hover {\n  background-color: #45a049;\n}\n</style>\n\n<div class=\"product-card\">\n  <img src=\"https://via.placeholder.com/150\" alt=\"Product Image\">\n  <h2>Product Title</h2>\n  <p>Product Description</p>\n  <span class=\"price\">$199.99</span>\n  <button class=\"add-to-cart\">Add to Cart</button>\n</div>",
+    "status": "COMPLETED",
+    "eval_detail": "Qualitative assessment available in report.",
+    "tokens": 443,
+    "latency": 26.09,
+    "tps": 16.98
+  },
+  {
+    "id": "cs_explanation",
+    "field": "8. CS & System Architecture Explanation",
+    "prompt": "Explain the difference between Optimistic Concurrency Control (OCC) and Pessimistic Concurrency Control (PCC) in relational databases. When should an engineer choose OCC over PCC? Keep it clear and technically accurate in 3 paragraphs.",
+    "response": "Optimistic Concurrency Control (OCC) and Pessimistic Concurrency Control (PCC) are two distinct strategies employed in relational databases to manage concurrent transactions and prevent data inconsistencies.\n\nPessimistic Concurrency Control (PCC) is a strict approach that assumes conflicts between transactions are inevitable. It locks the entire record or table to prevent any other transaction from modifying it until the first transaction is completed. This ensures that no two transactions can modify the same data simultaneously, thus eliminating the possibility of conflicts. However, this approach can lead to higher contention and reduced concurrency, as transactions may have to wait for locks to be released.\n\nOn the other hand, Optimistic Concurrency Control (OCC) is a more relaxed approach. It assumes that conflicts are rare and allows multiple transactions to access the same data concurrently. Each transaction reads the data, modifies it, and then attempts to commit. If the data has been modified by another transaction in the meantime, the first transaction is rolled back and must retry. This approach allows for higher concurrency but increases the likelihood of conflicts and the need for additional conflict resolution mechanisms.\n\nAn engineer should choose OCC over PCC when the application requires high concurrency and the likelihood of conflicts is low. OCC allows more transactions to execute concurrently, which can significantly improve performance in high-throughput environments. However, if the application requires strict consistency and the likelihood of conflicts is high, PCC might be a better choice to ensure data integrity. It's also worth noting that modern databases often use hybrid approaches that combine elements of both OCC and PCC to balance performance and consistency.",
+    "status": "COMPLETED",
+    "eval_detail": "Qualitative assessment available in report.",
+    "tokens": 338,
+    "latency": 20.39,
+    "tps": 16.57
+  }
+]

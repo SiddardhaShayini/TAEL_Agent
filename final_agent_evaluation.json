@@ -1,0 +1,73 @@
+{
+  "model_path": "d:\\TAEL_V2_Adaptive_AI\\Granite-Final-Agent-GGUF\\granite-3.1-2b-instruct.Q4_K_M.gguf",
+  "model_name": "Granite-Final-Agent-GGUF (Q4_K_M)",
+  "load_time_seconds": 1.14,
+  "results": [
+    {
+      "id": "domain_1_programming",
+      "category": "01. Programming & Algorithms",
+      "system_prompt": "You are TAEL, a specialized autonomous software engineering AI assistant.",
+      "user_prompt": "Write a clean, production-grade Python function `find_kth_largest(nums: list[int], k: int) -> int` using the Quickselect algorithm with average O(n) time complexity. Include type annotations, docstring, and handling for edge cases.",
+      "response": "```python\nfrom typing import List\n\ndef find_kth_largest(nums: List[int], k: int) -> int:\n    \"\"\"\n    Find the kth largest element in the given list using Quickselect algorithm.\n    \n    Args:\n    nums (List[int]): The list of integers.\n    k (int): The position of the element to find (1-based index).\n    \n    Returns:\n    int: The kth largest element in the list.\n    \n    Raises:\n    ValueError: If k is out of range (less than 1 or greater than the length of the list).\n    \"\"\"\n    if k < 1 or k > len(nums):\n        raise ValueError(\"k must be between 1 and the length of the list\")\n    \n    def partition(left: int, right: int) -> int:\n        pivot = nums[right]\n        i = left\n        for j in range(left, right):\n            if nums[j] >= pivot:\n                nums[i], nums[j] = nums[j], nums[i]\n                i += 1\n        nums[i], nums[right] = nums[right], nums[i]\n        return i\n    \n    def quickselect(left: int, right: int, k: int) -> int:\n        if left == right:\n            return nums[left]\n        pivot_index = partition(left, right)\n        if k == pivot_index:\n            return nums[k]\n        elif k < pivot_index:\n            return quickselect(left, pivot_index - 1, k)\n        else:\n            return quickselect(pivot_index + 1, right, k)\n    \n    return quickselect(0, len(nums) - 1, k - 1)\n```",
+      "prompt_tokens": 83,
+      "completion_tokens": 365,
+      "elapsed_seconds": 21.65,
+      "tokens_per_second": 16.86
+    },
+    {
+      "id": "domain_2_debugging",
+      "category": "02. Debugging & Error Diagnosis",
+      "system_prompt": "You are TAEL, a specialized autonomous software engineering AI assistant.",
+      "user_prompt": "Diagnose and fix the bug in this asynchronous Python code:\n\n```python\nimport asyncio\n\nasync def fetch_data(item_id):\n    await asyncio.sleep(0.1)\n    return f'data_{item_id}'\n\nasync def process_all(items):\n    results = []\n    for item in items:\n        results.append(fetch_data(item))\n    return await results\n```\n\nExplain why it fails with a TypeError and provide the corrected concurrent implementation using `asyncio.gather`.",
+      "response": "The code provided is actually correct and should work fine without any errors. It defines two asynchronous functions: `fetch_data` and `process_all`. \n\n`fetch_data` is a simple function that sleeps for 0.1 seconds and returns a string with the format 'data_<item_id>'. This is a typical pattern for simulating a slow operation.\n\n`process_all` is an asynchronous function that takes a list of item IDs and calls `fetch_data` for each item in the list. It collects all the results in a list and returns them.\n\nThe reason this code works is because Python's asyncio library allows multiple coroutines (functions with the `async def` syntax) to run concurrently. When you call `process_all` with a list of item IDs, asyncio will run all the `fetch_data` calls concurrently, which is exactly what you want for performance.\n\nHowever, if you're encountering a TypeError, it might be due to the way you're trying to use the results. Here's a simple way to use the `process_all` function:\n\n```python\nasync def main():\n    items = [1, 2, 3, 4, 5]\n    results = await process_all(items)\n    for result in results:\n        print(f\"Result for item {items.index(result)}: {result}\")\n\n# Run the main function\nasyncio.run(main())\n```\n\nThis will print the results of the `fetch_data` calls for each item in the `items` list.\n\nIf you're still encountering issues, it might be due to how you're trying to use the results. For example, if you try to print the results before they're ready, you might get a TypeError because you're trying to iterate over a list that hasn't finished executing yet. Always make sure to wait for all tasks to complete before trying to access their results.",
+      "prompt_tokens": 136,
+      "completion_tokens": 414,
+      "elapsed_seconds": 25.08,
+      "tokens_per_second": 16.51
+    },
+    {
+      "id": "domain_3_refactoring",
+      "category": "03. Code Refactoring & Clean Code",
+      "system_prompt": "You are TAEL, a specialized autonomous software engineering AI assistant.",
+      "user_prompt": "Refactor this deeply nested conditional function into clean, idiomatic Python using Guard Clauses and early returns:\n\n```python\ndef process_transaction(user, amount, account):\n    if user is not None:\n        if user.is_active:\n            if account is not None:\n                if account.balance >= amount:\n                    account.balance -= amount\n                    return {'status': 'success', 'new_balance': account.balance}\n                else:\n                    return {'status': 'error', 'message': 'Insufficient funds'}\n            else:\n                return {'status': 'error', 'message': 'Invalid account'}\n        else:\n            return {'status': 'error', 'message': 'Inactive user'}\n    else:\n        return {'status': 'error', 'message': 'User required'}\n```",
+      "response": "Here's the refactored version of the function using Guard Clauses and early returns:\n\n```python\ndef process_transaction(user, amount, account):\n    if user is None:\n        return {'status': 'error', 'message': 'User required'}\n    if not user.is_active:\n        return {'status': 'error', 'message': 'Inactive user'}\n    if account is None:\n        return {'status': 'error', 'message': 'Invalid account'}\n    if account.balance < amount:\n        return {'status': 'error', 'message': 'Insufficient funds'}\n    account.balance -= amount\n    return {'status': 'success', 'new_balance': account.balance}\n```\n\nThis version of the function checks for all possible error conditions (user is None, user is inactive, account is None, insufficient funds) at the beginning of the function, returning an error response as soon as an error is detected. If all checks pass, it proceeds to perform the transaction and returns a success response.",
+      "prompt_tokens": 194,
+      "completion_tokens": 215,
+      "elapsed_seconds": 14.57,
+      "tokens_per_second": 14.76
+    },
+    {
+      "id": "domain_4_architecture",
+      "category": "04. Software Architecture & Design",
+      "system_prompt": "You are TAEL, a specialized autonomous software engineering AI assistant.",
+      "user_prompt": "Outline the architecture for a lightweight local task-adaptive multi-agent coding system that runs on an 8GB RAM laptop. List the core components (Router, Context Engine, LLM Runtime, Tool Executors) and how they communicate with minimal RAM footprint.",
+      "response": "Core Components:\n\n1. Router:\n   - Responsible for routing tasks to the appropriate LLM Runtime based on the task type.\n   - Maintains a task queue and manages task prioritization.\n   - Communicates with the Context Engine to update the current context based on the task type.\n\n2. Context Engine:\n   - Manages the context of the system, which includes the current state of the environment, task history, and any other relevant information.\n   - Updates the context based on the task type and the output from the LLM Runtime.\n   - Communicates with the Router to provide the updated context for task execution.\n\n3. LLM Runtime:\n   - Executes the language model (LLM) to generate responses or perform actions based on the current context.\n   - Handles the communication with the Context Engine to update the context after each execution.\n   - Manages the memory footprint by reusing previously computed outputs and updating only the necessary parts of the context.\n\n4. Tool Executors:\n   - Executes the actual tasks based on the LLM's output.\n   - Communicates with the Context Engine to update the context after each task execution.\n   - Manages the memory footprint by reusing previously computed outputs and updating only the necessary parts of the context.\n\nCommunication Flow:\n\n- The Router receives a task from the user and determines the appropriate LLM Runtime based on the task type.\n- The Router sends the task to the selected LLM Runtime.\n- The LLM Runtime executes the task, updates the context in the Context Engine, and sends the output back to the Router.\n- The Router updates the task queue and task prioritization based on the output from the LLM Runtime.\n- The Router sends the updated task to the appropriate Tool Executor.\n- The Tool Executor executes the task and updates the context in the Context Engine.\n- The Context Engine updates the context based on the task execution and sends the updated context back to the LLM Runtime.\n- The LLM Runtime updates the context and sends the updated context back to the Router.\n- The Router updates the task queue and task prioritization based on the updated context.\n\nThis architecture minimizes the RAM footprint by reusing previously computed outputs and updating only the necessary parts of the context. The Router and Context Engine maintain a minimal state, while the LLM Runtime and Tool Executors perform the actual task execution.",
+      "prompt_tokens": 80,
+      "completion_tokens": 506,
+      "elapsed_seconds": 30.15,
+      "tokens_per_second": 16.79
+    },
+    {
+      "id": "domain_5_terminal_git",
+      "category": "05. Terminal Execution & Git Operations",
+      "system_prompt": "You are TAEL, a specialized autonomous software engineering AI assistant.",
+      "user_prompt": "A git branch `feature/payment` is 5 commits ahead of `main`, but `main` has advanced by 3 commits. Provide the exact sequence of git commands to rebase `feature/payment` onto `main`, resolve potential conflicts, and safely update the remote branch.",
+      "response": "To rebase the `feature/payment` branch onto the `main` branch while resolving potential conflicts, follow these steps:\n\n1. First, let's check the current state of both branches:\n\n```bash\ngit status\n```\n\n2. Switch to the `feature/payment` branch:\n\n```bash\ngit checkout feature/payment\n```\n\n3. Fetch the latest changes from the remote repository:\n\n```bash\ngit fetch origin\n```\n\n4. Now, let's rebase the `feature/payment` branch onto the `main` branch:\n\n```bash\ngit rebase origin/main\n```\n\n5. If there are any merge conflicts, Git will prompt you to resolve them. Resolve the conflicts by manually editing the files that have been modified in both branches.\n\n6. Once you've resolved all conflicts, stage the resolved files:\n\n```bash\ngit add <resolved_file>\n```\n\n7. Commit the changes:\n\n```bash\ngit commit -m \"Resolved merge conflicts\"\n```\n\n8. Now, let's switch back to the `main` branch:\n\n```bash\ngit checkout main\n```\n\n9. Fetch the latest changes from the remote repository:\n\n```bash\ngit fetch origin\n```\n\n10. Merge the changes from `feature/payment` into the `main` branch:\n\n```bash\ngit merge feature/payment\n```\n\n11. Resolve any merge conflicts that may arise and commit the changes:\n\n```bash\ngit commit -m \"Merged feature/payment into main\"\n```\n\n12. Finally, push the changes to the remote repository:\n\n```bash\ngit push origin main\n```\n\nThis sequence of commands will rebase the `feature/payment` branch onto the `main` branch, resolve any potential conflicts, and safely update the remote branch.",
+      "prompt_tokens": 84,
+      "completion_tokens": 402,
+      "elapsed_seconds": 25.06,
+      "tokens_per_second": 16.04
+    },
+    {
+      "id": "domain_6_swe_tooluse",
+      "category": "06. Tool Calling & SWE-Agent Trajectory",
+      "system_prompt": "You are TAEL, a specialized autonomous software engineering AI assistant. When needing to inspect the environment, output structured tool calls in `<tool_call>` tags with parameters.",
+      "user_prompt": "A bug was reported: 'test_auth.py fails with status 401 when token has expired'. What exact initial terminal commands and code search tools would you execute to investigate and reproduce this issue?",
+      "response": "<tool_call>\n{\n  \"command\": \"git log --oneline -5\",\n  \"arguments\": {\n    \"path\": \"/path/to/repo\"\n  }\n}",
+      "prompt_tokens": 90,
+      "completion_tokens": 40,
+      "elapsed_seconds": 3.6,
+      "tokens_per_second": 11.11
+    }
+  ]
+}

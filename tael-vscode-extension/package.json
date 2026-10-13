@@ -1,0 +1,202 @@
+{
+  "name": "tael-vscode-extension",
+  "displayName": "TAEL - Autonomous AI Coding Assistant (Ollama)",
+  "description": "Local autonomous software engineering assistant powered by TAEL (Granite 3.1 2B GGUF) on Ollama. Features Chat Panel, Code Generation, Refactoring, Code Explanation, Diff & Apply Edits, Sandboxed Tool Execution, and Workspace Awareness.",
+  "version": "2.0.0",
+  "publisher": "tael-ai",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Machine Learning",
+    "Other"
+  ],
+  "keywords": [
+    "tael",
+    "ollama",
+    "granite",
+    "ai assistant",
+    "autonomous agent",
+    "code generation",
+    "refactoring"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:tael.chatView"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "tael-sidebar",
+          "title": "TAEL AI Assistant",
+          "icon": "media/tael-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "tael-sidebar": [
+        {
+          "type": "webview",
+          "id": "tael.chatView",
+          "name": "TAEL Chat & Agent"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "tael.openChat",
+        "title": "TAEL: Focus Chat Panel",
+        "category": "TAEL"
+      },
+      {
+        "command": "tael.generateCode",
+        "title": "TAEL: Generate Code",
+        "category": "TAEL"
+      },
+      {
+        "command": "tael.refactorCode",
+        "title": "TAEL: Refactor Selected Code",
+        "category": "TAEL"
+      },
+      {
+        "command": "tael.explainCode",
+        "title": "TAEL: Explain Selected Code",
+        "category": "TAEL"
+      },
+      {
+        "command": "tael.fixDiagnostics",
+        "title": "TAEL: Fix Problems in Active File",
+        "category": "TAEL"
+      },
+      {
+        "command": "tael.applyEdit",
+        "title": "TAEL: Apply Last Suggested Edit",
+        "category": "TAEL"
+      },
+      {
+        "command": "tael.runAgentTask",
+        "title": "TAEL: Run Autonomous Agent Task (With Tools)",
+        "category": "TAEL"
+      },
+      {
+        "command": "tael.checkOllamaStatus",
+        "title": "TAEL: Check Local Ollama Connection",
+        "category": "TAEL"
+      },
+      {
+        "command": "tael.clearHistory",
+        "title": "TAEL: Clear Conversation History",
+        "category": "TAEL"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "tael.explainCode",
+          "when": "editorHasSelection",
+          "group": "tael@1"
+        },
+        {
+          "command": "tael.refactorCode",
+          "when": "editorHasSelection",
+          "group": "tael@2"
+        },
+        {
+          "command": "tael.generateCode",
+          "group": "tael@3"
+        },
+        {
+          "command": "tael.fixDiagnostics",
+          "group": "tael@4"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "tael.clearHistory",
+          "when": "view == tael.chatView",
+          "group": "navigation"
+        },
+        {
+          "command": "tael.checkOllamaStatus",
+          "when": "view == tael.chatView",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "tael.openChat",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t"
+      },
+      {
+        "command": "tael.generateCode",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "tael.refactorCode",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "tael.explainCode",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "editorHasSelection"
+      }
+    ],
+    "configuration": {
+      "title": "TAEL AI Assistant",
+      "properties": {
+        "tael.ollamaBaseUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:11434",
+          "description": "Base URL for the local Ollama runtime server."
+        },
+        "tael.modelName": {
+          "type": "string",
+          "default": "tael-agent",
+          "description": "Ollama model name to use for inference (default: tael-agent)."
+        },
+        "tael.numCtx": {
+          "type": "number",
+          "default": 4096,
+          "description": "Context window size in tokens (4096 optimized for 8GB RAM laptops)."
+        },
+        "tael.autoExecuteTools": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically execute sandboxed <tool_call> tags emitted by TAEL within the workspace."
+        },
+        "tael.maxAgentIterations": {
+          "type": "number",
+          "default": 6,
+          "description": "Maximum sequential tool-calling iterations per agentic task."
+        },
+        "tael.includeWorkspaceContext": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically attach active file, selection, and diagnostics metadata to prompts."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "node test_vscode_extension.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  }
+}

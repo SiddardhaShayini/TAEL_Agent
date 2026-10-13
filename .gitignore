@@ -1,0 +1,52 @@
+# ==============================================================================
+# TAEL-Agent (.gitignore)
+# Ensures only source code, configs, Modelfile, notebooks, and docs are pushed
+# to GitHub while large binary weights (.gguf, .safetensors) are hosted on HF.
+# ==============================================================================
+
+# Python bytecode & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+
+# Node.js / VS Code Extension build dependencies
+node_modules/
+tael-vscode-extension/node_modules/
+*.vsix
+
+# Runtime persistent session state & temporary scratch files
+.tael/
+TEMP_TAEL/
+runtime_test/
+temp_*
+scratch/
+
+# Environment variables & credentials
+.env
+.env.*
+*.pem
+*.key
+
+# Large Model Binaries (>100MB - Hosted on Hugging Face: SiddardhaShayini/TAEL_Agent)
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+Granite-Final-Agent-Merged/
+
+# Raw generated JSONL dataset dumps (Builder scripts in TAEL_Datasets/*.py are tracked)
+TAEL_Datasets/dataset/
+*.jsonl
+
+# OS & Editor metadata
+.DS_Store
+Thumbs.db
+*.swp
+*~

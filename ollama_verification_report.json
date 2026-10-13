@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-10-13 11:19:45",
+  "model_name": "tael-agent",
+  "gguf_validation": {
+    "valid": true,
+    "path": "d:\\TAEL_V2_Adaptive_AI\\Granite-Final-Agent-GGUF\\granite-3.1-2b-instruct.Q4_K_M.gguf",
+    "size_bytes": 1545295168,
+    "size_mb": 1473.71,
+    "size_gb": 1.44,
+    "magic": "GGUF",
+    "gguf_version": 3,
+    "tensor_count": 362,
+    "metadata_kv_count": 36,
+    "head_16mb_sha256": "43f6e1b33c8b8ef6236b1079ec3c3a8c170bf689c8e74589485d2cd5fbf81e7e"
+  },
+  "modelfile_validation": {
+    "valid": true,
+    "path": "d:\\TAEL_V2_Adaptive_AI\\Granite-Final-Agent-GGUF\\Modelfile",
+    "from_target": "./granite-3.1-2b-instruct.Q4_K_M.gguf",
+    "resolved_gguf_exists": true,
+    "has_chatml_template": true,
+    "parameters": [
+      {
+        "num_ctx": "4096"
+      },
+      {
+        "temperature": "0.2"
+      },
+      {
+        "top_p": "0.9"
+      },
+      {
+        "repeat_penalty": "1.05"
+      },
+      {
+        "stop": "\"<|im_end|>\""
+      },
+      {
+        "stop": "\"<|im_start|>\""
+      },
+      {
+        "stop": "\"<|end_of_text|>\""
+      }
+    ],
+    "has_system_prompt": true
+  },
+  "ollama_environment": {
+    "cli_available": true,
+    "version": "ollama version is 0.40.3",
+    "daemon_running": true
+  },
+  "ollama_create": {
+    "success": true,
+    "model_name": "tael-agent",
+    "duration_sec": 1.8,
+    "stdout": "",
+    "show_info": "Model\n    architecture        granite    \n    parameters          2.5B       \n    context length      131072     \n    embedding length    2048       \n    quantization        Q4_K_M     \n\n  Capabilities\n    tools         \n    completion    \n\n  Parameters\n    repeat_penalty    1.05                 \n    stop              \"<|im_end|>\"         \n    stop              \"<|im_start|>\"       \n    stop              \"<|end_of_text|>\"    \n    temperature       0.2                  \n    top_p             0.9                  \n    num_ctx           4096                 \n\n  System\n    You are TAEL (Task-Adaptive Efficient Language), a specialized autonomous software engineering          \n      and coding AI assistant. You excel at Python algorithms, SQL queries, debugging, code refactoring       \n      with guard clauses, software architecture, git workflows, terminal execution, and structured XML        \n      <tool_call> generation."
+  },
+  "ollama_run_tests": [
+    {
+      "id": "identity_check",
+      "prompt": "State your name and primary role in one concise sentence.",
+      "response": "I am TAEL, a specialized autonomous software engineering and coding AI assi\nassistant.",
+      "latency_sec": 1.1,
+      "passed": true
+    },
+    {
+      "id": "python_coding_check",
+      "prompt": "Write a Python function `is_palindrome(s: str) -> bool` that returns True if s is a palindrome. Output only the code.",
+      "response": "<tool_call>\nimport re\n\ndef is_palindrome(s: str) -> bool:\n    # Remove non-alphanumeric characters and convert to lowercase\n    s = re.sub(r'\\W+', '', s).lower()\n    \n    # Check if the string is a palindrome\n    return s == s[::-1]\n</tool_call>",
+      "latency_sec": 4.48,
+      "passed": true
+    }
+  ],
+  "overall_success": true
+}

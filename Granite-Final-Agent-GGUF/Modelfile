@@ -1,0 +1,30 @@
+FROM ./granite-3.1-2b-instruct.Q4_K_M.gguf
+
+TEMPLATE """{{- if .Messages }}
+{{- if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{- end }}
+{{- range .Messages }}
+{{- if ne .Role "system" }}<|im_start|>{{ .Role }}
+{{ .Content }}<|im_end|>
+{{- end }}
+{{- end }}<|im_start|>assistant
+{{ else }}
+{{- if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{- end }}
+{{- if .Prompt }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+{{- end }}<|im_start|>assistant
+{{ .Response }}<|im_end|>
+{{- end }}"""
+
+PARAMETER num_ctx 4096
+PARAMETER temperature 0.2
+PARAMETER top_p 0.9
+PARAMETER repeat_penalty 1.05
+PARAMETER stop "<|im_end|>"
+PARAMETER stop "<|im_start|>"
+PARAMETER stop "<|end_of_text|>"
+
+SYSTEM """You are TAEL (Task-Adaptive Efficient Language), a specialized autonomous software engineering and coding AI assistant. You excel at Python algorithms, SQL queries, debugging, code refactoring with guard clauses, software architecture, git workflows, terminal execution, and structured XML <tool_call> generation."""
